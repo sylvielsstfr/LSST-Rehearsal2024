@@ -61,7 +61,7 @@ Jy_to_ergcmm2sm1hzm1 = 1e-23
 DT = 30.0 # seconds
 gel = 1.693343125
 #hP = 6.62607015E-34 # J⋅Hz−1
-hP = 6.626196E-27
+hP = 6.626196E-27 # erg.s
 A  = np.pi*642.3**2/4 # cm2  Reff=6.423 m
 pixel_scale = 0.2 #arcsec/pixel
 readnoise = 12.3936875
