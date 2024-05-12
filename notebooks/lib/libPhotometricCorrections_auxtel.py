@@ -34,11 +34,6 @@ from rubinsimphot.phot_utils import PhotometricParameters
 #auxtel_sdss_r.dat                                                                multispectra_holo4_003_HD142331_20230802_AuxTel_doGainsPTC_v3.0.3_throughput.txt
 
 
-filter_tagnames = ["u","g","r","i","z","y"]
-Filter_tagnames = ["U","G","R","I","Z","Y"]
-filtercolor_tagnames = ["u-g","g-r","r-i","i-z","z-y"]
-Filtercolor_tagnames = ["U-G","G-R","R-I","I-Z","Z-Y"]
-filter_color = ["b","g","r","orange","grey","k"]
 
 # New version with prime sdss filters (March-April 2024)
 hardware_filenames = ["auxtel_sdss_up_total.dat","auxtel_sdss_gp_total.dat","auxtel_sdss_rp_total.dat","auxtel_sdss_ip_total.dat","auxtel_sdss_zp_total.dat","auxtel_sdss_yp_total.dat"] 
