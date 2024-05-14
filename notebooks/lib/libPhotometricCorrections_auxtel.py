@@ -3,7 +3,7 @@
 # Author          : Sylvie Dagoret-Campagne
 # Affiliaton      : IJCLab/IN2P3/CNRS
 # Creation Date   : 2024/01/03
-# Last update     : 2024/04/06
+# Last update     : 2024/05/14
 #
 # A python tool to calculate Photometric Correction
 # 
