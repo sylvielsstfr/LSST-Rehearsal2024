@@ -75,8 +75,12 @@ these plots explain why repeatability cannot be achieved in Auxtel
 
 - **ViewMultipleStageImageProcessingDemo-LSSTComCamSim.ipynb**
 - **ViewMultiStageImageProcessingDemo-Auxtel.ipynb**
-- **ViewMultiStageImageProcessingDemoSplitAmplifiers-Auxtel.ipynb** : study row/cols of calexp and calexpbackground	
+- 
+- **ViewMultiStageImageProcessingDemoSplitAmplifiers-Auxtel.ipynb** : study row/cols of calexp and calexpbackground
+- **ViewMultiStageImageProcessingDemoSplitAmplifiers-LSSTComCamSim.ipynb**
 - **ViewCalExpStatPerRowCol-Auxtel.ipynb** : study row/cols of calexp sigmas
-          
+- **ViewCalExpStatPerRowCol-LSSTComCamSim.ipynb** : study row/cols of calexp sigmas          
      
 
+
+ 
