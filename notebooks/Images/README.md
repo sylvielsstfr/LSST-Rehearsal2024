@@ -71,13 +71,14 @@ these plots explain why repeatability cannot be achieved in Auxtel
 
 
 ## Very important notebook showing how parameters on sky background are extracted from exposures (to be shown in JIRA tickets and presentations
-
-
 - **ViewMultipleStageImageProcessingDemo-LSSTComCamSim.ipynb**
 - **ViewMultiStageImageProcessingDemo-Auxtel.ipynb**
-- 
+
+## Split CLEXP images into amplifiers, show rows,columns pattern and calculate cross-correlation  
 - **ViewMultiStageImageProcessingDemoSplitAmplifiers-Auxtel.ipynb** : study row/cols of calexp and calexpbackground
 - **ViewMultiStageImageProcessingDemoSplitAmplifiers-LSSTComCamSim.ipynb**
+
+## Summary statistics on rows and columns AND Shows the table of parameters
 - **ViewCalExpStatPerRowCol-Auxtel.ipynb** : study row/cols of calexp sigmas
 - **ViewCalExpStatPerRowCol-LSSTComCamSim.ipynb** : study row/cols of calexp sigmas          
      
