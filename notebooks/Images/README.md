@@ -5,7 +5,7 @@
 
 - author Sylvie Dagoret-Campagne
 - creation date 2024-05-17
-- last update 2024-05-17
+- last update 2024-05-23
 - affiliation : IJCLab
 - kernel : **w_2024_16**
 
@@ -23,6 +23,7 @@ Most of these notebooks use the list of selected visits that are in a file in ``
 
 ## Example of notebook to extract a fits file
 
+Note now the WCS is included in the header file
 - **ConvertCalexpToFitsfromselectedVisits-Auxtel.ipynb**
 
 
@@ -64,21 +65,29 @@ Those notebooks refer to a list of selected visit file in ``../Visits``.
 #### Very important summary plots on the sky-background
 
 these plots explain why repeatability cannot be achieved in Auxtel
-
+(to be shown in JIRA tickets and presentations)
 - **ViewExtractedPixelExposuresBkgs_Auxtel.ipynb**
 - **ViewExtractedPixelExposuresBkgs_LSSTComCamSim.ipynb**
 
 
 
-## Very important notebook showing how parameters on sky background are extracted from exposures (to be shown in JIRA tickets and presentations
+## Very important notebook showing how parameters on sky background are extracted from exposures 
+Moreover it shows that the CalexpBackground does not change if it is below a star or outside a star.
 - **ViewMultipleStageImageProcessingDemo-LSSTComCamSim.ipynb**
 - **ViewMultiStageImageProcessingDemo-Auxtel.ipynb**
 
-## Split CLEXP images into amplifiers, show rows,columns pattern and calculate cross-correlation  
+## Split CALEXP images into amplifiers, show rows,columns pattern and calculate cross-correlation
+
+- Show pixel rows lines or columns patterns
+- Show autocorrelation
+- 
 - **ViewMultiStageImageProcessingDemoSplitAmplifiers-Auxtel.ipynb** : study row/cols of calexp and calexpbackground
 - **ViewMultiStageImageProcessingDemoSplitAmplifiers-LSSTComCamSim.ipynb**
 
 ## Summary statistics on rows and columns AND Shows the table of parameters
+
+- Calculate to show latex tables
+- 
 - **ViewCalExpStatPerRowCol-Auxtel.ipynb** : study row/cols of calexp sigmas
 - **ViewCalExpStatPerRowCol-LSSTComCamSim.ipynb** : study row/cols of calexp sigmas          
      
