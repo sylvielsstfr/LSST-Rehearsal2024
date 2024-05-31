@@ -10,4 +10,19 @@
                 
 ## Shorter version of the notebook above focusing on ZeroPoint                        
 - **MultiColor_lightCurves-DMRehearsal2024_01-LSSTComCamSim-DZPOnCCD.ipynb**
-- **MultiColor_lightCurves-DMRehearsal2024_01-AuxTel-DZPOnCCD.ipynb** 
+- **MultiColor_lightCurves-DMRehearsal2024_01-AuxTel-DZPOnCCD.ipynb**
+
+
+## Extract fiew light curves into csv files
+- **SingleBand_lightCurves_ExtractOneObject_Auxtel.ipynb**
+
+## Generate fits images in light curves from abive csv file@
+- **ConvertCalexpLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+- **ConvertManyCalexpLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+-
+## DM alogo such as detection of sources
+- **DetectSourcesfromselectedSources-Auxtel.ipynb**
+     
+
+## View cutouts
+-**ViewCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
