@@ -1,5 +1,9 @@
 # README.md
 
+- author Sylvie Dagoret-Campagne
+- last update 2024-06-01
+- affiliation : IJCLab
+
 ## Original notebooks for single band (updated for DESC on rehearsal)
 - **SingleBand_lightCurves_Auxtel.ipynb**
 - **SingleBand_lightCurves_LSSTComCamSim.ipynb**
@@ -24,5 +28,12 @@
 - **DetectSourcesfromselectedSources-Auxtel.ipynb**
      
 
-## View cutouts
+## View cutouts (2024-05-31)
 -**ViewCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+
+
+## Study footprint and psf (2024-06-01)
+
+- **DetectionMeasurementCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+- **CharacterizePSFCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+        
