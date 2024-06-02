@@ -16,7 +16,6 @@
 - **MultiColor_lightCurves-DMRehearsal2024_01-LSSTComCamSim-DZPOnCCD.ipynb**
 - **MultiColor_lightCurves-DMRehearsal2024_01-AuxTel-DZPOnCCD.ipynb**
 
-
 ## Extract fiew light curves into csv files
 - **SingleBand_lightCurves_ExtractOneObject_Auxtel.ipynb**
 
@@ -24,16 +23,13 @@
 - **ConvertCalexpLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 - **ConvertManyCalexpLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 -
-## DM alogo such as detection of sources
+## DM algo such as detection of sources
 - **DetectSourcesfromselectedSources-Auxtel.ipynb**
      
-
 ## View cutouts (2024-05-31)
 -**ViewCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 
-
 ## Study footprint and psf (2024-06-01)
-
 - **DetectionMeasurementCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 - **CharacterizePSFCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
         
