@@ -1,7 +1,7 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-06-01
+- last update 2024-06-03
 - affiliation : IJCLab
 
 ## Original notebooks for single band (updated for DESC on rehearsal)
@@ -26,8 +26,9 @@
 ## DM algo such as detection of sources
 - **DetectSourcesfromselectedSources-Auxtel.ipynb**
      
-## View cutouts (2024-05-31)
+## View cutouts (2024-05-31 and 2024-06-03)
 -**ViewCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+-**ViewCutoutVarianceFlagsfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 
 ## Study footprint and psf (2024-06-01)
 - **DetectionMeasurementCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
