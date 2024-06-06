@@ -1,7 +1,7 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-06-03
+- last update 2024-06-06
 - affiliation : IJCLab
 
 ## Original notebooks for single band (updated for DESC on rehearsal)
@@ -29,8 +29,13 @@
 ## View cutouts (2024-05-31 and 2024-06-03)
 -**ViewCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 -**ViewCutoutVarianceFlagsfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+-**ViewCutoutBigfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb** : see 2 stars in FOV
 
 ## Study footprint and psf (2024-06-01)
 - **DetectionMeasurementCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 - **CharacterizePSFCutoutfromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+- **CharacterizePSFCutoutRatiofromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+ 
+
+
         
