@@ -1,7 +1,7 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-06-06
+- last update 2024-06-08
 - affiliation : IJCLab
 
 ## Original notebooks for single band (updated for DESC on rehearsal)
@@ -37,5 +37,8 @@
 - **CharacterizePSFCutoutRatiofromCalexpSourcesLightCurveToFitsfromselectedSources-Auxtel.ipynb**
  
 
+## Study multicolor (2024-06-08)
+- **ViewCutoutBigfromCalexpSourcesMultiColorLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 
+- 
         
