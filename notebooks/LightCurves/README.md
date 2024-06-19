@@ -40,5 +40,7 @@
 ## Study multicolor (2024-06-08)
 - **ViewCutoutBigfromCalexpSourcesMultiColorLightCurveToFitsfromselectedSources-Auxtel.ipynb**
 
-- 
+
+## Study pairs of bright isolated stars (2024-06-19)
+- **ViewCutoutBigfromCalexpTwinSourcesMultiColorLightCurveToFitsfromselectedSources-Auxtel.ipynb**
         
