@@ -43,4 +43,10 @@
 
 ## Study pairs of bright isolated stars (2024-06-19)
 - **ViewCutoutBigfromCalexpTwinSourcesMultiColorLightCurveToFitsfromselectedSources-Auxtel.ipynb**
+
+## Now **MultiColor_lightCurves-DMRehearsal2024_01-AuxTel.ipynb** generate objectsourcefiles in data/photom/sources_objectTable/ (2024-06-21)
+The object source file is objects-lightcurves-LATISS_runs_AUXTEL_DRP_IMAGING_20230509_20240414_w_2024_15_PREOPS-5069-tract3864.csv
+- **AngularCorreslationObjects.ipynb** make list of pairs : read --> all_pairs.csv, write --> list_of_isolatedobjects.csv
+- **ViewCutoutBigfromCalexpTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel.ipynb** process the pairs to produce Delta Color pair vs time
+
         
