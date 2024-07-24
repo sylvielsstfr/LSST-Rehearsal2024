@@ -1,7 +1,7 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-07-22
+- last update 2024-06-08
 - affiliation : IJCLab
 
 ## Original notebooks for single band (updated for DESC on rehearsal)
@@ -49,15 +49,4 @@ The object source file is objects-lightcurves-LATISS_runs_AUXTEL_DRP_IMAGING_202
 - **AngularCorreslationObjects.ipynb** make list of pairs : read --> all_pairs.csv, write --> list_of_isolatedobjects.csv
 - **ViewCutoutBigfromCalexpTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel.ipynb** process the pairs to produce Delta Color pair vs time
 
-
-## Notebooks calculating color light-curves on object pairs including photometric resolution
-(24-06-2024 et 22-07-2024)
-
-- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb**
-- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**
-
-
-## View pairs in FireFly
-(28-06-2024)
-- **FireflyForPairs.ipynb**
         
