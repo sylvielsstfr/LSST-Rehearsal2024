@@ -1,7 +1,7 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-07-26
+- last update 2024-08-01
 - affiliation : IJCLab
 
 ## Original notebooks for single band (updated for DESC on rehearsal)
@@ -59,3 +59,6 @@ work from  all_pairs.csv
 to accelerate **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**, read output files from **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**:
 - LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb
 
+## Correct extraction of colors (2024-08-01) 
+
+- **ColorIsolatedObjects.ipynb** : extract Colors from Light curves in data/photom/sources_objectTable and then generate a pandas dataframe with object colors in file isolated_objects_magandcolors_psfap_good.csv. There is still e bug on object color here : *MultiColor_lightCurves-DMRehearsal2024_01-AuxTel (not found where).
