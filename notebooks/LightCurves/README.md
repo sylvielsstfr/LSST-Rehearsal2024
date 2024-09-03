@@ -55,9 +55,17 @@ The object source file is objects-lightcurves-LATISS_runs_AUXTEL_DRP_IMAGING_202
 work from  all_pairs.csv
 - **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb**
 - **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**
+
+- same extraction but with cuts 
+- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR-cutontime.ipynb**
+- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-cutontime.ipynb**
         
-to accelerate **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**, read output files from **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**:
-- LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb
+- to accelerate **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**, read output files from **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**:
+- Comparing to PWV:
+- fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb
+- fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb
+- Comparing to Ozone
+- fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb
 
 ## Correct extraction of colors (2024-08-01) 
 
