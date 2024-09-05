@@ -81,3 +81,7 @@ work from  all_pairs.csv
 
 ## Must add simulation of color effect due to pwv (2024-09-04)
 - **LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-AndSimul.ipynb**
+
+
+## Matching objects with SED pickles
+- **MatchObjectsToPickles.ipynb**
