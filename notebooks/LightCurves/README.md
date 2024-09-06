@@ -4,6 +4,14 @@
 - last update 2024-09-05
 - affiliation : IJCLab
 
+
+Before commit:
+
+     jupyter nbconvert --clear-output --inplace my_notebook.ipynb:wq
+     
+
+
+
 ## Original notebooks for single band (updated for DESC on rehearsal)
 - **SingleBand_lightCurves_Auxtel.ipynb**
 - **SingleBand_lightCurves_LSSTComCamSim.ipynb**
