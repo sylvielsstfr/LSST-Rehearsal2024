@@ -1,7 +1,7 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-09-05
+- last update 2024-09-09
 - affiliation : IJCLab
 
 
@@ -85,6 +85,8 @@ work from  all_pairs.csv
 
 ## Associate a Pickle SED to each object (2024-09-04)
 - **MatchObjectsToPickles.ipynb**
+- **MatchObjectsToPicklesAndSelectAppropriates.ipynb** (2024-09-08) : splint pickles in different sets to keep one
+- **MatchObjectsToPicklesAndSelectAppropriates-INZ_YOnly.ipynb** (2024-09-09) : focus on matching in Z-Y band only
 
 
 ## Must add simulation of color effect due to pwv (2024-09-04)
