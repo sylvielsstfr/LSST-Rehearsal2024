@@ -1,8 +1,16 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-08-01
+- last update 2024-09-09
 - affiliation : IJCLab
+
+
+Before commit:
+
+     jupyter nbconvert --clear-output --inplace my_notebook.ipynb:wq
+     
+
+
 
 ## Original notebooks for single band (updated for DESC on rehearsal)
 - **SingleBand_lightCurves_Auxtel.ipynb**
@@ -55,10 +63,35 @@ The object source file is objects-lightcurves-LATISS_runs_AUXTEL_DRP_IMAGING_202
 work from  all_pairs.csv
 - **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb**
 - **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**
+
+- same extraction but with cuts 
+- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR-cutontime.ipynb**
+- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-cutontime.ipynb**
         
-to accelerate **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**, read output files from **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**:
-- LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb
+- to accelerate **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**, read output files from **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**:
+- Comparing to PWV:
+- fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb
+- fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb
+- Comparing to Ozone
+- fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb
 
 ## Correct extraction of colors (2024-08-01) 
 
-- **ColorIsolatedObjects.ipynb** : extract Colors from Light curves in data/photom/sources_objectTable and then generate a pandas dataframe with object colors in file isolated_objects_magandcolors_psfap_good.csv. There is still e bug on object color here : *MultiColor_lightCurves-DMRehearsal2024_01-AuxTel (not found where).
+- **ColorIsolatedObjects.ipynb** : extract Colors from Light curves in data/photom/sources_objectTable and then generate a pandas dataframe with object colors in file isolated_objects_magandcolors_psfap_good.csv. There is still a bug on object color here : *MultiColor_lightCurves-DMRehearsal2024_01-AuxTel (not found where).
+
+
+## ViewAllLightCurves (2024-09-03)
+- **ViewAllLightCurves.ipynb** : Show every light curves.
+
+## Associate a Pickle SED to each object (2024-09-04)
+- **MatchObjectsToPickles.ipynb**
+- **MatchObjectsToPicklesAndSelectAppropriates.ipynb** (2024-09-08) : splint pickles in different sets to keep one
+- **MatchObjectsToPicklesAndSelectAppropriates-INZ_YOnly.ipynb** (2024-09-09) : focus on matching in Z-Y band only
+
+
+## Must add simulation of color effect due to pwv (2024-09-04)
+- **LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-AndSimul.ipynb**
+
+
+## Matching objects with SED pickles
+- **MatchObjectsToPickles.ipynb**
