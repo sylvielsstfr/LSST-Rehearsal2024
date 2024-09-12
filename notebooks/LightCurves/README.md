@@ -147,4 +147,5 @@ in notebooks called **LoopQuickLookTwinSourcesMultiColorLightCurve...**:
 - **MatchObjectsToPicklesAndSelectAppropriates-INZ_YOnly.ipynb**: Does the match with SED pickles only on Z-Y
 
 
-## 
+## Example to read the color diff model
+- **ReadDiffColorModel.ipynb** 
