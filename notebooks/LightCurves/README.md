@@ -1,13 +1,13 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-09-09
+- last update 2024-09-12
 - affiliation : IJCLab
 
 
-Before commit:
+Before committing a notebook:
 
-     jupyter nbconvert --clear-output --inplace my_notebook.ipynb:wq
+     jupyter nbconvert --clear-output --inplace my_notebook.ipynb
      
 
 
@@ -67,11 +67,54 @@ work from  all_pairs.csv
 - same extraction but with cuts 
 - **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR-cutontime.ipynb**
 - **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-cutontime.ipynb**
+
+
+- Add a version to depend on the kind of holo data used (2024-09-12)
+
+- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR-cutontime_v2.ipynb**
+-**LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-cutontime_v2.ipynb**
+
+    ==> No version #atmfilename = "data/spectro/auxtel_atmosphere_202301_v3.1.0_doSensorFlat_rebin2_testWithMaskedEdges_newBoundaries_newPolysRescaled_newFitBounds_adjustA1_lockedOrder2_removeThroughputTails_2.npy"
+
+    ==> v2 version: atmfilename = "data/spectro/auxtel_atmosphere_202301_v3.1.0_doSensorFlat_rebin2_lockedOrder2_FixA1_FixA2_FitAngstrom_FixA1_FixA2_FitAngstrom_WithGaia_freePressure_newThroughput6_BG40Scaled1.09_PeekFinder.npy"
+
+
+
+Note the colored light curves extracted goes into those Folders:
+
+      data_coloredlightcurvesG_R/
+      data_coloredlightcurvesG_R_thmax_100/
+      data_coloredlightcurvesG_R_thmax_100_tmax_1800/
+      data_coloredlightcurvesG_R_thmax_200/
+      data_coloredlightcurvesG_R_thmax_200_tmax_1800/
+      data_coloredlightcurvesG_R_thmax_200_tmax_3600/
+      data_coloredlightcurvesG_R_thmax_300_tmax_1800/
+      data_coloredlightcurvesG_R_thmax_300_tmax_3600/
+      data_coloredlightcurvesG_R_thmax_300_tmax_3600_v2/
+      data_coloredlightcurvesZ_Y/
+      data_coloredlightcurvesZ_Y_thmax_100/
+      data_coloredlightcurvesZ_Y_thmax_100_tmax_1800/
+      data_coloredlightcurvesZ_Y_thmax_200/
+      data_coloredlightcurvesZ_Y_thmax_200_tmax_1800/
+      data_coloredlightcurvesZ_Y_thmax_200_tmax_3600/
+      data_coloredlightcurvesZ_Y_thmax_300_tmax_1800/
+      data_coloredlightcurvesZ_Y_thmax_300_tmax_3600/
+      data_coloredlightcurvesZ_Y_thmax_300_tmax_3600_v2/
+
+      
         
-- to accelerate **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**, read output files from **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**:
+- In order to accelerate light curves processing inside those slown notebooks :**LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**, read output files from **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb**:
+
+  I have implemented a fast reading the the colored light curves by reading the results from folders **data_coloredlightcurves/**
+in notebooks called **LoopQuickLookTwinSourcesMultiColorLightCurve...**:
+
 - Comparing to PWV:
 - fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb
+
+  
 - fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb
+
+  
 - Comparing to Ozone
 - fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR.ipynb
 
@@ -92,6 +135,17 @@ work from  all_pairs.csv
 ## Must add simulation of color effect due to pwv (2024-09-04)
 - **LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-AndSimul.ipynb**
 
+- **LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-AndSimul.ipynb_v2** : using a color diff model based on SED pickle matching
+
+- **LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-AndSimul.ipynb_v3** : using a color diff model based on Fast emulator (datagrid from getObsAtmo) and switching among different kind of notebooks holo.
+
+- **LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-AndSimul.ipynb_v2** use a model from pickle SED
 
 ## Matching objects with SED pickles
-- **MatchObjectsToPickles.ipynb**
+- **MatchObjectsToPickles.ipynb** : match data with SED pickles by finding the nearest neighbourg in 2D in G-R, Z-Y
+- **MatchObjectsToPicklesAndSelectAppropriates.ipynb** : try to restrict the number of pickles
+- **MatchObjectsToPicklesAndSelectAppropriates-INZ_YOnly.ipynb**: Does the match with SED pickles only on Z-Y
+
+
+## Example to read the color diff model
+- **ReadDiffColorModel.ipynb** 
