@@ -17,9 +17,9 @@
 - **ExploreHoloQualityOzone.ipynb** :  Show Night variations of Ozone wrt date and Time. Fit a straight line.
 
 
-## Notebook to convert the npy format into other format
+## Notebook to convert the npy format into other formats
 - **HoloDataConvertFormat.ipynb**
 
-## Notebook to read back and check the format.
+## Notebook to read back and check the formats.
 (related to **HoloDataConvertFormat.ipynb**)
 - **HoloDataReadFormat.ipynb**
