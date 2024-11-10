@@ -28,35 +28,33 @@
 
 ## All notebooks on quality
 ### PWV
-- ExploreHoloQualityPWV_v1.ipynb
-- ExploreHoloQualityPWVAndAzimuth.ipynb
-- ExploreHoloQualityPWV.ipynb
+- **ExploreHoloQualityPWV_v1.ipynb**
+- **ExploreHoloQualityPWVAndAzimuth.ipynb**
+- **ExploreHoloQualityPWV.ipynb**
 
 ### Ozone
-- ExploreHoloQualityOzone.ipynb
-- ExploreHoloQualityOzone_v1.ipynb
+- **ExploreHoloQualityOzone.ipynb**
+- **ExploreHoloQualityOzone_v1.ipynb**
 
 ## Notebooks on repeatability
 
-ExploreHoloQualityPWV_repeatability.ipynb
-
-ExploreHoloQualityVAOD_repeatability.ipynb
-ExploreHoloQualityOzone_repeatability.ipynb
-ExploreHoloQualityA1_repeatability.ipynb
+- **ExploreHoloQualityPWV_repeatability.ipynb**
+- **ExploreHoloQualityVAOD_repeatability.ipynb**
+- **ExploreHoloQualityOzone_repeatability.ipynb**
+- **ExploreHoloQualityA1_repeatability.ipynb**
 
 ## Notebooks to compare MERRA2
 
-- CompareHoloMerra2VAOD_timeseq.ipynb
-- CompareHoloMerra2Ozone_timeseq.ipynb
-- CompareHoloMerra2PWV_timeseq.ipynb
+- **CompareHoloMerra2VAOD_timeseq.ipynb**
+- **CompareHoloMerra2Ozone_timeseq.ipynb**
+- **CompareHoloMerra2PWV_timeseq.ipynb**
 
-## Notebooks On time sequences
+## Notebooks On time sequences (Nov 8 2024)
 
-- GP_PWV_timeseq.ipynb
+- **GP_PWV_timeseq.ipynb** : Fit Linear (polynoms) and fit Gaussian
 
+- **TimeCorrelation.ipynb** : Compute Time correlation function namely Discrete Correlation Function (DCF) based on pyZDCF
 
-57819 Nov  8 13:01 PWV_TimeCorrelation.ipynb
--rw-r--r--  1 dagoret  staff    57819 Nov  8 13:01 GP_PWV_timeseq.ipynb
 
 
 ## Other
