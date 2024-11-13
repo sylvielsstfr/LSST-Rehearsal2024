@@ -1,7 +1,7 @@
 # README.md
 
 - creation date : 2024-09-23
-- Las update : 2024-10-07 : Use version v4 of input file.
+- Las update : 2024-11-13 
 
 ## First nb (deprecated)
 - ExploreHoloData.ipynb
@@ -55,7 +55,7 @@
 
 - **TimeCorrelation.ipynb** : Compute Time correlation function namely Discrete Correlation Function (DCF) based on pyZDCF
 
-
+- **Fit_GP_PWV_timeseq-and-FetchSpectra.ipynb** (Nov 13 2024) : Show spectra at usdf
 
 ## Other
 
