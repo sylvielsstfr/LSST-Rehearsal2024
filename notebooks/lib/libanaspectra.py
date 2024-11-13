@@ -150,9 +150,59 @@ def plot_spectra(spectra, colorparams,collection,dateobs,figsize=(10,6)):
     suptitle = f"collection = {collection}"
     plt.title(title)
     plt.suptitle(suptitle,fontsize=10)
-    plt.tight_layout()
+    #plt.tight_layout()
     plt.show()
     return fig
+
+def plot_spectra_ax(spectra, ax,colorparams,dateobs):
+    """
+    plot spectra
+    """
+    
+    #colormap = cm.Reds
+    colormap = cm.jet 
+
+    normalize = mcolors.Normalize(vmin=np.min(colorparams), vmax=np.max(colorparams))
+
+    all_target_names = [] 
+
+    count = 0
+    for spec in spectra:
+        target_name = spec.target.label
+        if target_name in all_target_names:
+            ax.plot(spec.lambdas, spec.data, color = colormap(normalize(spec.airmass)))
+        else:
+            ax.plot(spec.lambdas, spec.data, color = colormap(normalize(spec.airmass)),label=target_name)
+            all_target_names.append(target_name)
+        count +=1
+            
+    ax.grid()
+    ax.set_xlabel("$\lambda$ [nm]")
+    ax.set_ylabel(f"Flux [{spec.units}]")
+    ax.legend()
+
+    #ax = plt.gca()
+    
+    # Colorbar setup
+    s_map = cm.ScalarMappable(norm=normalize, cmap=colormap)
+    s_map.set_array(colorparams)
+
+    # If color parameters is a linspace, we can set boundaries in this way
+    halfdist = (colorparams[1] - colorparams[0])/2.0
+    boundaries = np.linspace(colorparams[0] - halfdist, colorparams[-1] + halfdist, len(colorparams) + 1)
+
+    # Use this to emphasize the discrete color values
+    fig = ax.figure
+    cbar = fig.colorbar(s_map,ax=ax) #, spacing='proportional', ticks=colorparams, boundaries=boundaries, format='%2.2g') # format='%2i' for integer
+    #cbar = ax.collections[-1].colorbar 
+
+    # Use this to show a continuous colorbar
+    #cbar = fig.colorbar(s_map, spacing='proportional', ticks=colorparams, format='%2i')
+    cbar.set_label("Airmass $z$")
+    title = f"Observations : {dateobs}, nspec = {count}"
+    #ax.set_title(title)
+    #plt.tight_layout()
+
 
 
 def plot_atmtransmission(spectra, colorparams,all_calspecs_sm,tel,disp,collection,dateobs,figsize=(10,6)):
@@ -233,12 +283,93 @@ def plot_atmtransmission(spectra, colorparams,all_calspecs_sm,tel,disp,collectio
     # Use this to show a continuous colorbar
     #cbar = fig.colorbar(s_map, spacing='proportional', ticks=colorparams, format='%2i')
     #cbar.set_label("Airmass $z$")
-    title = f"Atmospheric transmission at target airmasses)"
+    title = f"Atmospheric transmission at target airmasses"
     suptitle = f"obs : {dateobs} , nspec = {count} \n coll = {collection}"
     plt.title(title)
     plt.suptitle(suptitle,fontsize=10,y=1.0)
-    plt.tight_layout()
+    #plt.tight_layout()
     plt.show()
+
+
+def plot_atmtransmission_ax(spectra, ax,colorparams,all_calspecs_sm,tel,disp,dateobs):
+    """
+    plot spectra
+    """
+
+    import matplotlib.colors as mcolors
+    import matplotlib.cm as cm
+    #colormap = cm.Reds
+    colormap = cm.jet 
+   
+    normalize = mcolors.Normalize(vmin=np.min(colorparams), vmax=np.max(colorparams))
+
+    all_shown_target_names = [] 
+    count = 0
+
+    # loop on spectra
+    for spec in spectra:
+
+        #decode target name
+        target_name = spec.target.label
+
+        wls = spec.lambdas
+        flx = spec.data
+        flx_err = spec.err
+        
+        #c_dict = all_calspecs[target_name]
+        c_dict = all_calspecs_sm[target_name]
+
+        #smooth_data_np_convolve(sed,span)
+        
+        sed=np.interp(wls, c_dict["WAVELENGTH"]/10.,c_dict["FLUX"]*10.,left=1e-15,right=1e-15)
+       
+                     
+        ratio = flx/tel.transmission(wls)/disp.transmission(wls)/sed
+       
+        indexes = np.where(np.logical_and(wls>350.,wls<=1000.))[0]
+       
+        sel_wls = wls[indexes]
+        sel_ratio = ratio[indexes]
+        
+        if target_name in all_shown_target_names:
+            ax.plot(sel_wls, sel_ratio, color = colormap(normalize(spec.airmass)))
+        else:
+            ax.plot(sel_wls,sel_ratio, color = colormap(normalize(spec.airmass)),label=target_name)
+            all_shown_target_names.append(target_name)
+        count +=1
+            
+     
+            
+    ax.grid()
+    ax.set_xlabel("$\lambda$ [nm]")
+    #plt.ylabel(f"Flux [{spec.units}]")
+    ax.set_ylabel("atm. transmission at z")
+    ax.legend()
+    ax.set_xlim(360.,1000.)  
+    ax.set_ylim(0.,1.2)  
+    
+    # Colorbar setup
+    s_map = cm.ScalarMappable(norm=normalize, cmap=colormap)
+    s_map.set_array(colorparams)
+
+    # If color parameters is a linspace, we can set boundaries in this way
+    halfdist = (colorparams[1] - colorparams[0])/2.0
+    boundaries = np.linspace(colorparams[0] - halfdist, colorparams[-1] + halfdist, len(colorparams) + 1)
+
+    fig = ax.figure
+    
+    # Use this to emphasize the discrete color values
+    cbar = fig.colorbar(s_map,ax=ax) #, spacing='proportional', ticks=colorparams, boundaries=boundaries, format='%2.2g') # format='%2i' for integer
+    
+    #cbar = fig.colorbar(s_map,spacing='proportional', ticks=colorparams, boundaries=boundaries, format='%2.2g') # format='%2i' for integer
+    cbar.set_label("Airmass $z$")
+    
+    # Use this to show a continuous colorbar
+    #cbar = fig.colorbar(s_map, spacing='proportional', ticks=colorparams, format='%2i')
+    #cbar.set_label("Airmass $z$")
+    title = f"Atmospheric transmission at target airmasses, obs : {dateobs} , nspec = {count}"
+    #ax.set_title(title)
+    
     
 
 def plot_atmtransmission_zcorr(spectra, colorparams,all_calspecs_sm,tel,disp,collection,dateobs,figsize=(10,6)):
@@ -324,9 +455,94 @@ def plot_atmtransmission_zcorr(spectra, colorparams,all_calspecs_sm,tel,disp,col
     suptitle = f"obs : {dateobs} , nspec = {count} \n coll = {collection}"
     plt.title(title)
     plt.suptitle(suptitle,fontsize=10,y=1.0)
-    plt.tight_layout()
+    #plt.tight_layout()
     plt.show()
     
+
+def plot_atmtransmission_zcorr_ax(spectra, ax, colorparams,all_calspecs_sm,tel,disp,dateobs):
+    """
+    plot atmospheric transmission corrected for airmass = 1 (z_pred = 1)
+
+    $$
+    T(z_{pred}) = \frac{ \left( T(z_{meas}) \right)^\left( \frac{z_{pred}}{z_{meas}}\right)}{(T^{grey}_{z_{meas}})^{z_{pred}}}
+    $$
+    parameters
+     - spectra,
+     - colorparmas
+    
+    """
+
+    import matplotlib.colors as mcolors
+    import matplotlib.cm as cm
+    #colormap = cm.Reds
+    colormap = cm.jet 
+   
+
+    normalize = mcolors.Normalize(vmin=np.min(colorparams), vmax=np.max(colorparams))
+    all_shown_target_names = [] 
+  
+
+    count = 0
+    for spec in spectra:
+             
+        target_name = spec.target.label
+
+        wls = spec.lambdas
+        flx = spec.data
+        flx_err = spec.err
+        
+        #c_dict = all_calspecs[target_name]
+        c_dict = all_calspecs_sm[target_name]
+
+        #smooth_data_np_convolve(sed,span)
+        
+        sed=np.interp(wls, c_dict["WAVELENGTH"]/10.,c_dict["FLUX"]*10.,left=1e-15,right=1e-15)
+                         
+        ratio = flx/tel.transmission(wls)/disp.transmission(wls)/sed
+       
+        indexes = np.where(np.logical_and(wls>350.,wls<=1000.))[0]
+       
+        sel_wls = wls[indexes]
+        sel_ratio = ratio[indexes]
+        sel_ratio_airmas_corr = np.power(sel_ratio,1/spec.airmass)
+        
+        if target_name in all_shown_target_names:
+            ax.plot(sel_wls, sel_ratio_airmas_corr, color = colormap(normalize(spec.airmass)))
+        else:
+            ax.plot(sel_wls,sel_ratio_airmas_corr, color = colormap(normalize(spec.airmass)),label=target_name)
+            all_shown_target_names.append(target_name)
+        count += 1
+            
+     
+            
+    ax.grid()
+    ax.set_xlabel("$\lambda$ [nm]")
+    ax.set_ylabel("atm. transmission at z=1.0")
+    ax.legend()
+    ax.set_xlim(360.,1000.)  
+    ax.set_ylim(0.,1.2)  
+
+    fig = ax.figure
+    
+    # Colorbar setup
+    s_map = cm.ScalarMappable(norm=normalize, cmap=colormap)
+    s_map.set_array(colorparams)
+
+    # If color parameters is a linspace, we can set boundaries in this way
+    halfdist = (colorparams[1] - colorparams[0])/2.0
+    boundaries = np.linspace(colorparams[0] - halfdist, colorparams[-1] + halfdist, len(colorparams) + 1)
+
+    # Use this to emphasize the discrete color values
+    cbar = fig.colorbar(s_map,ax=ax) #, spacing='proportional', ticks=colorparams, boundaries=boundaries, format='%2.2g') # format='%2i' for integer
+
+    # Use this to show a continuous colorbar
+    #cbar = fig.colorbar(s_map, spacing='proportional', ticks=colorparams, format='%2i')
+    cbar.set_label("Airmass $z$")
+    title = f"Atmospheric transmission scaled for airmass=1, obs : {dateobs} , nspec = {count}"
+    #ax.set_title(title)
+   
+
+
 
 #def plot_atmtransmission_zcorr_antatmsim(spectra, colorparams,all_calspecs_sm,tel,disp,collection,dateobs,df_atm,am=1,pwv=2,oz=300,vaod=0.01,grey=0.99):
 def plot_atmtransmission_zcorr_antatmsim(spectra, colorparams,all_calspecs_sm,tel,disp,collection,dateobs,df_atm,am=1):
