@@ -1,4 +1,4 @@
-# Last update 2024-01-18
+# Last update 2024-11-14
 
 import lsst.daf.butler as dafButler
 import numpy as np
@@ -9,7 +9,7 @@ import matplotlib.cm as cm
 import matplotlib.gridspec as gridspec
 
 from getObsAtmo.getObsAtmo import ObsAtmo
-
+from datetime import datetime
 import h5py
 
 # Spectra
@@ -822,7 +822,138 @@ def plot_atmtransmission_zcorr_antatmsim_ratio(spectra,colorparams,all_calspecs_
     plt.suptitle(suptitle,fontsize=10,y=1.0)
 
     plt.show()
+
+def savehdf5_pernightspectra(spectra,df_spec_night,all_calspecs_sm,tel,disp,dateobs,pathdata):
+    """
+    Save Spectra, atmospheric transmission in hdf5 files 
+
+    refer to 
+    $$
+    T(z_{pred}) = \frac{ \left( T(z_{meas}) \right)^\left( \frac{z_{pred}}{z_{meas}}\right)}{(T^{grey}_{z_{meas}})^{z_{pred}}}
+    $$
     
+    """
+
+    # create the file
+    file_hdf5 = f"spectra_transmission_{dateobs}.h5"
+    ffile_hdf5 = os.path.join(pathdata,file_hdf5)
+
+    print(f">>>> create file hdf5 {ffile_hdf5}")
+    hf = h5py.File(file_hdf5, 'w')
+
+    # Find the relattive time wrt midnight
+    tmin = df_spec_night["Time"].min()
+    tmax = df_spec_night["Time"].max()
+    list_of_targets = df_spec_night["TARGET"].unique()
+    str_list_of_targets = "\n".join(list_of_targets)
+     
+    # convert in hours wrt midnight
+    df_spec_night.assign(dt = lambda row : (row["Time"]-tmin).dt.seconds/3600.,inplace=True)
+
+
+    for spec in spectra:
+        target_name = spec.target.label
+        airmass = spec.airmass 
+    # first froup : the median parameters
+    group_name = 'spectra'
+    print(f">>>> create group {group_name}")
+    g_atmparam = hf.create_group(group_name)
+
+    # find average atmospheric parameters
+    df_good = df_atm[df_atm.filtered].drop(["id","filtered"],axis=1)
+
+    try:
+        m_A1 , m_ozone, m_PWV, m_VAOD = df_good.median().values
+        print(" mean parameters",m_A1 , m_ozone, m_PWV, m_VAOD)
+    except Exception as inst:
+        print(">>>>   !!!! savehdf5_atmtransmission_zcorr_antatmsim_ratio !!!!")
+        print(type(inst))    # the exception type
+        print(inst.args)     # arguments stored in .args
+        print(inst)          # __str__ allows args to be printed directly,
+                             # but may be overridden in exception subclasses
+        m_A1 , m_ozone, m_PWV, m_VAOD = 1.,0.,0.,0.
+    
+   
+   
+    g_atmparam.attrs['md_grey'] = m_A1
+    g_atmparam.attrs['md_ozone'] = m_ozone
+    g_atmparam.attrs["md_PWV"] = m_PWV
+    g_atmparam.attrs["md_VAOD"] = m_VAOD
+
+    # loop on Spec
+    count = 0
+    for spec in spectra:     
+
+        row = df_atm[df_atm.id == spec.dataId]
+        (s_id, s_target, s_A1, s_ozone, s_PWV, s_VAOD, s_flag) = row.values[0]
+        if s_flag:
+            pwv=s_PWV
+            oz=s_ozone
+            vaod=s_VAOD
+            grey=m_A1
+        else:
+            pwv=m_PWV
+            oz=m_ozone
+            vaod=m_VAOD
+            grey=m_A1
+
+        target_name = spec.target.label
+
+        group_name = f"spec_{spec.dataId}"
+        print(f">>>> create group {group_name}")
+        
+        spec_group =  hf.create_group(f"spec_{spec.dataId}")
+        spec_group.attrs['target'] = target_name
+        spec_group.attrs['airmass'] = spec.airmass
+        
+        spec_group.attrs['flag_atmparam'] = int(s_flag)
+        spec_group.attrs['grey'] = grey
+        spec_group.attrs['ozone'] = oz
+        spec_group.attrs['VAOD'] = vaod
+        spec_group.attrs['PWV'] = pwv
+        
+        
+        wls = spec.lambdas
+        flx = spec.data
+        flx_err = spec.err
+        
+        d = spec_group.create_dataset("wls",data=wls,compression="gzip", compression_opts=9)
+        d = spec_group.create_dataset("fls",data=flx,compression="gzip", compression_opts=9)
+        d = spec_group.create_dataset("fls_err",data=flx_err,compression="gzip", compression_opts=9)
+        
+        c_dict = all_calspecs_sm[target_name]
+
+        #smooth_data_np_convolve(sed,span)
+        sed=np.interp(wls, c_dict["WAVELENGTH"]/10.,c_dict["FLUX"]*10.,left=1e-15,right=1e-15)
+                      
+        ratio = flx/tel.transmission(wls)/disp.transmission(wls)/sed
+        ratio_err = flx/tel.transmission(wls)/disp.transmission(wls)/sed
+       
+        indexes = np.where(np.logical_and(wls>350.,wls<=1000.))[0]
+       
+        sel_wls = wls[indexes]
+        sel_ratio = ratio[indexes]
+        sel_ratio_airmas_corr = np.power(sel_ratio,am/spec.airmass)/(np.power(grey,am))
+        sel_ratio_err = ratio_err[indexes]
+
+        d = spec_group.create_dataset("wlr",data=sel_wls,compression="gzip", compression_opts=9)
+        d = spec_group.create_dataset("ratio",data=sel_ratio,compression="gzip", compression_opts=9)
+        d = spec_group.create_dataset("ratio_airmass1",data=sel_ratio_airmas_corr,compression="gzip", compression_opts=9)
+        d = spec_group.create_dataset("ratio_err",data=sel_ratio_err,compression="gzip", compression_opts=9)
+        count += 1
+    group_name = "sim_spec"
+    print(f">>>> create group {group_name}")
+    sim_group =  hf.create_group(group_name)
+   
+    transm_sim1 = emul1.GetAllTransparencies(sel_wls,am,m_PWV,m_ozone,tau=m_VAOD)
+    transm_sim2 = emul2.GetAllTransparencies(sel_wls,am,m_PWV,m_ozone,tau=m_VAOD)
+
+    sim_group.attrs['ozone'] = m_ozone
+    sim_group.attrs['VAOD'] = m_VAOD
+    sim_group.attrs['PWV'] = m_PWV
+    d = sim_group.create_dataset("wls",data=sel_wls,compression="gzip", compression_opts=9)
+    d = sim_group.create_dataset("transm",data=transm_sim2,compression="gzip", compression_opts=9)   
+    hf.close() 
 
 def savehdf5_atmtransmission_zcorr_antatmsim_ratio(spectra,colorparams,all_calspecs_sm,tel,disp,collection,dateobs,df_atm,am=1):
     """
