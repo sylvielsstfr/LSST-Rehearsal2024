@@ -52,10 +52,17 @@
 ## Notebooks On time sequences (Nov 8 2024)
 
 - **GP_PWV_timeseq.ipynb** : Fit Linear (polynoms) and fit Gaussian
-
 - **TimeCorrelation.ipynb** : Compute Time correlation function namely Discrete Correlation Function (DCF) based on pyZDCF
-
 - **Fit_GP_PWV_timeseq-and-FetchSpectra.ipynb** (Nov 13 2024) : Show spectra at usdf
+
+-**StudySpectraOneNight-savehdf5-keep.ipynb** : save information about spectra in hdf5 files (under developpement) (code will move inside the libs)
+-**ExploreSpectraQuality.ipynb** : find the parameter responsible for oscillations in the spectra
+
+
+-**Fit_GP_PWV_timeseq-and-FetchSpectra-savehdf5-Copy1.ipynb**: probably unnecesary
+
+
+
 
 ## Other
 
