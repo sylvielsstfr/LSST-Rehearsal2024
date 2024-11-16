@@ -11,6 +11,7 @@ import matplotlib.gridspec as gridspec
 from getObsAtmo.getObsAtmo import ObsAtmo
 from datetime import datetime
 import h5py
+import os
 
 # Spectra
 
@@ -823,7 +824,122 @@ def plot_atmtransmission_zcorr_antatmsim_ratio(spectra,colorparams,all_calspecs_
 
     plt.show()
 
+
 def savehdf5_pernightspectra(spectra,df_spec_night,all_calspecs_sm,tel,disp,dateobs,pathdata):
+    """
+    Save Spectra, atmospheric transmission in hdf5 files 
+
+    refer to 
+    $$
+    T(z_{pred}) = \frac{ \left( T(z_{meas}) \right)^\left( \frac{z_{pred}}{z_{meas}}\right)}{(T^{grey}_{z_{meas}})^{z_{pred}}}
+    $$
+    
+    """
+
+    # create the file
+    file_hdf5 = f"spectra_transmission_{dateobs}.h5"
+    ffile_hdf5 = os.path.join(pathdata,file_hdf5)
+
+    print(f">>>> create file hdf5 {ffile_hdf5}")
+    hf = h5py.File(ffile_hdf5, 'w')
+
+    # Find the relattive time wrt midnight
+    tmin = df_spec_night["Time"].min()
+    tmax = df_spec_night["Time"].max()
+    df_spec_night.assign(dt = lambda row : (row["Time"]-tmin).dt.seconds/3600.,inplace=True)
+
+    list_of_targets = df_spec_night["TARGET"].unique()
+
+    list_visitid = list(df_spec_night["id"])
+     
+    # convert in hours wrt midnight
+  
+
+    for idx,visitid in enumerate(list_visitid):
+        group_name = f'spectrum_{visitid}'
+        spec = spectra[idx]
+        target_name = spec.target.label
+        airmass = spec.airmass 
+   
+        #print(f">>>> create group {group_name}")
+        g_spec = hf.create_group(group_name)
+
+        g_spec.attrs['airmass'] = airmass
+        g_spec.attrs['visitid'] = visitid
+        g_spec.attrs["target"] = target_name
+
+        
+        # extract the flux
+        wls = spec.lambdas
+        flx = spec.data
+        flx_err = spec.err
+
+        # save the flux
+        d = g_spec.create_dataset("wls",data=wls,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("fls",data=flx,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("fls_err",data=flx_err,compression="gzip", compression_opts=9)
+
+        # extract SED
+        c_dict = all_calspecs_sm[target_name] 
+        sed=np.interp(wls, c_dict["WAVELENGTH"]/10.,c_dict["FLUX"]*10.,left=1e-15,right=1e-15)
+                         
+        ratio_atz = flx/tel.transmission(wls)/disp.transmission(wls)/sed
+        ratio_atz_err = flx_err/tel.transmission(wls)/disp.transmission(wls)/sed
+
+        d = g_spec.create_dataset("transm_atz",data=ratio_atz,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("transm_atz_err",data=ratio_atz_err,compression="gzip", compression_opts=9)
+
+        ratio_atz1 = np.power(ratio_atz,1./airmass)
+        ratio_atz1_err = 1/airmass * ratio_atz_err/np.power(ratio_atz,1.-1./airmass)
+    
+        d = g_spec.create_dataset("transm_atz1",data=ratio_atz1,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("transm_atz1_err",data=ratio_atz1_err,compression="gzip", compression_opts=9)
+
+    
+    #print(f">>>> save file hdf5 {ffile_hdf5}")
+    hf.close() 
+    return ffile_hdf5
+
+def readhdf5_pernightspectra(the_h5_file):
+    """
+    read Spectra, atmospheric transmission from hdf5 files 
+
+    Parameters:
+        the_h5_file : full filename (path and filename)
+    """
+
+    hf = h5py.File(the_h5_file, 'r')
+    list_of_keys = list(hf.keys())
+    
+    dict_spectra = {}
+    for a_group_key, h5obj in hf.items():
+        if isinstance(h5obj,h5py.Group):
+            #print(a_group_key,'is a Group')
+            group_number = int(a_group_key.split('_')[1])
+            
+            dict_spectrum_attributes = {}
+            dict_spectrum_datasets = {}
+            group = hf[a_group_key]
+        
+            list_of_datasets = group.keys()
+            list_of_attributes = group.attrs.keys()
+        
+            #print("\t attributes : ",list_of_attributes)
+            for key in list_of_attributes:
+                dict_spectrum_attributes[key] = group.attrs[key]
+            #print("\t datasets   : ", list_of_datasets)
+            for key in list_of_datasets:
+                dict_spectrum_datasets[key] = group[key][:]
+            
+            dict_spectra[group_number] = dict(attr=dict_spectrum_attributes, datasets=dict_spectrum_datasets)   
+            
+        elif isinstance(h5obj,h5py.Dataset):
+            #print(a_group_key,'is a Dataset')
+            pass
+    return  dict_spectra
+
+
+def savehdf5_pernightspectraold(spectra,df_spec_night,all_calspecs_sm,tel,disp,dateobs,pathdata):
     """
     Save Spectra, atmospheric transmission in hdf5 files 
 
