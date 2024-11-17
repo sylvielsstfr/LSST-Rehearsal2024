@@ -886,6 +886,7 @@ def savehdf5_pernightspectra(spectra,df_spec_night,all_calspecs_sm,tel,disp,date
         ratio_atz = flx/tel.transmission(wls)/disp.transmission(wls)/sed
         ratio_atz_err = flx_err/tel.transmission(wls)/disp.transmission(wls)/sed
 
+        #save datasets in hdf5
         d = g_spec.create_dataset("transm_atz",data=ratio_atz,compression="gzip", compression_opts=9)
         d = g_spec.create_dataset("transm_atz_err",data=ratio_atz_err,compression="gzip", compression_opts=9)
 
@@ -894,6 +895,10 @@ def savehdf5_pernightspectra(spectra,df_spec_night,all_calspecs_sm,tel,disp,date
     
         d = g_spec.create_dataset("transm_atz1",data=ratio_atz1,compression="gzip", compression_opts=9)
         d = g_spec.create_dataset("transm_atz1_err",data=ratio_atz1_err,compression="gzip", compression_opts=9)
+
+        d = g_spec.create_dataset("sed",data=sed,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("disptransm",data=disp.transmission(wls),compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("teltransm",data=tel.transmission(wls),compression="gzip", compression_opts=9)
 
     
     #print(f">>>> save file hdf5 {ffile_hdf5}")
