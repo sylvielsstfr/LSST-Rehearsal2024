@@ -905,6 +905,132 @@ def savehdf5_pernightspectra(spectra,df_spec_night,all_calspecs_sm,tel,disp,date
     hf.close() 
     return ffile_hdf5
 
+
+def savehdf5_pernightspectra_withsim(spectra,df_spec_night,all_calspecs_sm,tel,disp,dateobs,emul,pathdata):
+    """
+    Save Spectra, atmospheric transmission in hdf5 files 
+
+    refer to 
+    $$
+    T(z_{pred}) = \frac{ \left( T(z_{meas}) \right)^\left( \frac{z_{pred}}{z_{meas}}\right)}{(T^{grey}_{z_{meas}})^{z_{pred}}}
+    $$
+
+    Use also getObsAtmo to transport transmission from z to 1
+    """
+
+    # create the file
+    file_hdf5 = f"spectra_transmission_{dateobs}.h5"
+    ffile_hdf5 = os.path.join(pathdata,file_hdf5)
+
+    print(f">>>> create file hdf5 {ffile_hdf5}")
+    hf = h5py.File(ffile_hdf5, 'w')
+
+    # Find the relattive time wrt midnight
+    tmin = df_spec_night["Time"].min()
+    tmax = df_spec_night["Time"].max()
+    df_spec_night.assign(dt = lambda row : (row["Time"]-tmin).dt.seconds/3600.,inplace=True)
+
+    list_of_targets = df_spec_night["TARGET"].unique()
+
+    list_visitid = list(df_spec_night["id"])
+
+    #preselect 
+    df_spec_night_fittedparams = df_spec_night[['id',
+                                              'A1_x', 'A1_err_x','A2_x','A2_err_x','A3','A3_err',
+                                              'VAOD_x','VAOD_err_x',
+                                              'angstrom_exp_x','angstrom_exp_err_x',
+                                              'ozone [db]_x','ozone [db]_err_x',
+                                              'PWV [mm]_x','PWV [mm]_err_x']]
+
+    
+     
+    # convert in hours wrt midnight
+  
+
+    for idx,visitid in enumerate(list_visitid):
+        group_name = f'spectrum_{visitid}'
+        spec = spectra[idx]
+        target_name = spec.target.label
+        airmass = spec.airmass 
+   
+        #print(f">>>> create group {group_name}")
+        g_spec = hf.create_group(group_name)
+        g_spec.attrs['airmass'] = airmass
+        g_spec.attrs['visitid'] = visitid
+        g_spec.attrs["target"] = target_name
+
+        df_params = df_spec_night_fittedparams[df_spec_night_fittedparams["id"] == visitid ]
+       
+        list_of_params = list(df_params.columns)
+
+        for param_name in list_of_params:
+            value = df_params.iloc[0][param_name]
+            g_spec.attrs[param_name] = value
+         
+
+        pwv = df_params.iloc[0]['PWV [mm]_x']
+        oz =  df_params.iloc[0]['ozone [db]_x']
+        tau = df_params.iloc[0]['VAOD_x']
+        beta= df_params.iloc[0]['angstrom_exp_x']
+        
+             
+        # extract the flux
+        wls = spec.lambdas
+        flx = spec.data
+        flx_err = spec.err
+
+        # save the flux
+        d = g_spec.create_dataset("wls",data=wls,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("fls",data=flx,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("fls_err",data=flx_err,compression="gzip", compression_opts=9)
+
+        # extract SED
+        c_dict = all_calspecs_sm[target_name] 
+        sed=np.interp(wls, c_dict["WAVELENGTH"]/10.,c_dict["FLUX"]*10.,left=1e-15,right=1e-15)
+                         
+        ratio_atz = flx/tel.transmission(wls)/disp.transmission(wls)/sed
+        ratio_atz_err = flx_err/tel.transmission(wls)/disp.transmission(wls)/sed
+
+        d = g_spec.create_dataset("transm_atz",data=ratio_atz,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("transm_atz_err",data=ratio_atz_err,compression="gzip", compression_opts=9)
+
+
+        # cut low wavelengths
+        wls_int  = np.where(wls<300.,300.,wls)
+        TZ = emul.GetAllTransparencies(wls_int,airmass,pwv,oz,tau,beta)
+        T1 = emul.GetAllTransparencies(wls_int,1.,pwv,oz,tau,beta)
+
+        
+
+        ratio_tsim =  TZ/T1
+
+        #simple correction
+        ratio_atz1 = np.power(ratio_atz,1./airmass)
+        ratio_atz1_err = 1/airmass * ratio_atz_err/np.power(ratio_atz,1.-1./airmass)
+
+        #advanced correction
+        ratio_atz12 = ratio_atz/ratio_tsim
+        ratio_atz12_err = ratio_atz_err/ratio_tsim 
+
+         
+        d = g_spec.create_dataset("transm_atz1",data=ratio_atz1,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("transm_atz1_err",data=ratio_atz1_err,compression="gzip", compression_opts=9)
+
+        d = g_spec.create_dataset("transm_atz12",data=ratio_atz12,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("transm_atz12_err",data=ratio_atz12_err,compression="gzip", compression_opts=9)
+
+        d = g_spec.create_dataset("transmsim_ratio",data=ratio_tsim ,compression="gzip", compression_opts=9)
+
+        d = g_spec.create_dataset("sed",data=sed,compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("disptransm",data=disp.transmission(wls),compression="gzip", compression_opts=9)
+        d = g_spec.create_dataset("teltransm",data=tel.transmission(wls),compression="gzip", compression_opts=9)
+        
+    
+    #print(f">>>> save file hdf5 {ffile_hdf5}")
+    hf.close() 
+    return ffile_hdf5
+    
+
 def readhdf5_pernightspectra(the_h5_file):
     """
     read Spectra, atmospheric transmission from hdf5 files 
