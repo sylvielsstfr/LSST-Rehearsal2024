@@ -935,7 +935,7 @@ def savehdf5_pernightspectra_withsim(spectra,df_spec_night,all_calspecs_sm,tel,d
     list_visitid = list(df_spec_night["id"])
 
     #preselect 
-    df_spec_night_fittedparams = df_spec_night[['id',
+    df_spec_night_fittedparams = df_spec_night[['id',"dt_midnight",
                                               'A1_x', 'A1_err_x','A2_x','A2_err_x','A3','A3_err',
                                               'VAOD_x','VAOD_err_x',
                                               'angstrom_exp_x','angstrom_exp_err_x',
