@@ -3,7 +3,7 @@
 # Author          : Sylvie Dagoret-Campagne
 # Affiliaton      : IJCLab/IN2P3/CNRS
 # Creation Date   : 2024/01/03
-# Last update     : 2024/05/14
+# Last update     : 2024/04/06
 #
 # A python tool to calculate Photometric Correction
 # 
@@ -34,6 +34,11 @@ from rubinsimphot.phot_utils import PhotometricParameters
 #auxtel_sdss_r.dat                                                                multispectra_holo4_003_HD142331_20230802_AuxTel_doGainsPTC_v3.0.3_throughput.txt
 
 
+filter_tagnames = ["u","g","r","i","z","y"]
+Filter_tagnames = ["U","G","R","I","Z","Y"]
+filtercolor_tagnames = ["u-g","g-r","r-i","i-z","z-y"]
+Filtercolor_tagnames = ["U-G","G-R","R-I","I-Z","Z-Y"]
+filter_color = ["b","g","r","orange","grey","k"]
 
 # New version with prime sdss filters (March-April 2024)
 hardware_filenames = ["auxtel_sdss_up_total.dat","auxtel_sdss_gp_total.dat","auxtel_sdss_rp_total.dat","auxtel_sdss_ip_total.dat","auxtel_sdss_zp_total.dat","auxtel_sdss_yp_total.dat"] 
@@ -72,15 +77,12 @@ FILTERWL = np.array([[ 353.        ,  385.        ,  369.        ,   32.        
 F0 = 3631.0 # Jy 1, Jy = 10^{-23} erg.cm^{-2}.s^{-1}.Hz^{-1}
 Jy_to_ergcmm2sm1hzm1 = 1e-23
 DT = 30.0 # seconds
-#gel = 1.08269375
-gel = 1.3  # from PTC
+gel = 1.08269375
 #hP = 6.62607015E-34 # J⋅Hz−1
-hP = 6.626196E-27 # erg.s
+hP = 6.626196E-27
 A  = 9636.0 # cm2
 pixel_scale = 0.1 #arcsec/pixel
 readnoise = 8.96875
-D = 1.11 # m true diameter
-K0 = (F0*Jy_to_ergcmm2sm1hzm1)*(np.pi*(1.2)**2/4*1e4)*DT/hP*np.power(10,-0.4*25.0)
 
 #ZPT_cont =  2.5 \log_{10} \left(\frac{F_0 A \Delta T}{g_{el} h} \right)
 ZPTconst = 2.5*np.log10(F0*Jy_to_ergcmm2sm1hzm1*A*DT/gel/hP)
@@ -95,25 +97,6 @@ photoparams._gain = gel
 photoparams._exptime = DT
 photoparams._effarea = A
 photoparams._platescale = pixel_scale
-
-# calculation from LSE-40
-def func_Cb(m0,dt,Tb):
-    Cb = K0/gel*np.power(10.0,0.4*(25-m0))*(D/1.2)**2*(dt/DT)*Tb
-    return Cb
-def func_ZP(Tb):
-    Zb = 181.6/gel*(D/1.2)**2*Tb
-    mZP = 25.0+2.5*np.log10(Zb)
-    return mZP
-def func_Bb(m_sky,dt,Sigb):
-    Bb = func_Cb(m_sky,dt,Sigb)*(pixel_scale)**2
-    return Bb
-def funcBbtomb(Bb,dt,Sigb):
-    """
-    calculate magnitude for Sky Background from ADU during dt 
-    """
-    mb = 25.0 - 2.5*np.log10(gel*Bb/(K0*pixel_scale**2*Sigb)*(1.2/D)**2*(DT/dt))
-    return mb
-    
 
 
 def fII0(wl,s):

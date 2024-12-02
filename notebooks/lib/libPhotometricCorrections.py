@@ -3,7 +3,7 @@
 # Author          : Sylvie Dagoret-Campagne
 # Affiliaton      : IJCLab/IN2P3/CNRS
 # Creation Date   : 2023/02/23
-# Last update     : 2024/05/14
+# Last update     : 2024/01/04
 #
 # A python tool to calculate Photometric Correction
 # 
@@ -61,12 +61,10 @@ Jy_to_ergcmm2sm1hzm1 = 1e-23
 DT = 30.0 # seconds
 gel = 1.693343125
 #hP = 6.62607015E-34 # J⋅Hz−1
-hP = 6.626196E-27 # erg.s
+hP = 6.626196E-27
 A  = np.pi*642.3**2/4 # cm2  Reff=6.423 m
 pixel_scale = 0.2 #arcsec/pixel
 readnoise = 12.3936875
-D = 6.423
-K0 = (F0*Jy_to_ergcmm2sm1hzm1)*(np.pi*(6.5)**2/4*1e4)*DT/hP*np.power(10,-0.4*25.0)
 
 #ZPT_cont =  2.5 \log_{10} \left(\frac{F_0 A \Delta T}{g_{el} h} \right)
 ZPTconst = 2.5*np.log10(F0*Jy_to_ergcmm2sm1hzm1*A*DT/gel/hP)
@@ -82,26 +80,6 @@ photoparams._exptime = DT
 photoparams._effarea = A
 photoparams._platescale = pixel_scale
 
-
-# calculation from LSE-40
-def func_Cb(m0,dt,Tb):
-    Cb = K0/gel*np.power(10.0,0.4*(25-m0))*(D/6.5)**2*(dt/DT)*Tb
-    return Cb
-def func_ZP(Tb):
-    Zb = 181.6/gel*(D/6.5)**2*Tb
-    mZP = 25.0+2.5*np.log10(Zb)
-    return mZP
-def func_Bb(m_sky,dt,Sigb):
-    Bb = func_Cb(m_sky,dt,Sigb)*(pixel_scale)**2
-    return Bb
-    
-def funcBbtomb(Bb,dt,Sigb):
-    """
-    calculate magnitude for Sky Background from ADU during dt 
-    """
-    mb = 25.0 - 2.5*np.log10(gel*Bb/(K0*pixel_scale**2*Sigb)*(6.5/D)**2*(DT/dt))
-    return mb
-    
 
 def fII0(wl,s):
   return np.trapz(s/wl,wl)
