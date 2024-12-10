@@ -1,7 +1,7 @@
 # README.md
 
 - creation date : 2024-09-23
-- Las update : 2024-11-17 
+- Las update : 2024-12-10 
 
 ## First nb (deprecated)
 - ExploreHoloData.ipynb
@@ -52,6 +52,7 @@
 ## Notebooks On time sequences (Nov 8 2024)
 
 - **GP_PWV_timeseq.ipynb** : Fit Linear (polynoms) and fit Gaussian
+- **GP_Ozone_timeseq.ipynb** : Fit Linear (polynoms) and fit Gaussian (2024-12-09)
 - **TimeCorrelation.ipynb** : Compute Time correlation function namely Discrete Correlation Function (DCF) based on pyZDCF
 - **Fit_GP_PWV_timeseq-and-FetchSpectra.ipynb** (Nov 13 2024) : Show spectra at usdf
 - **Fit_GP_PWV_timeseq-and-FetchSpectra-savehdf5.ipynb** (Nov 17 2024) : save spectra in hdf5 files (use  ../lib/libanaspectra.py)
@@ -61,7 +62,7 @@
 
 ## Notebook doing analysis on spectra (Nov 15 2024)
 -**ExploreSpectraQuality.ipynb** : find the parameter responsible for oscillations in the spectra
--**Analysesavehdf5-transmission.ipynb** : understand grey attenuation and move forward on airmass bias
+-**Analysesavehdf5-transmission.ipynb** : understand grey attenuation and move forward on airmass bias AND SELECT PHOTOMETRIC NIGHTS
 
 
 
