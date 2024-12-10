@@ -60,14 +60,17 @@
 -**StudySpectraOneNight-savehdf5-keep.ipynb** : save information about spectra in hdf5 files (under developpement) (code will move inside the  ../lib/libanaspectra.py)
 -**StudySpectraOneNight-savehdf5.ipynb** : similar as above but using  ../lib/libanaspectra.py
 
-## Notebook doing analysis on spectra (Nov 15 2024)
+## Notebook doing analysis on spectra (Nov 15th 2024)
 -**ExploreSpectraQuality.ipynb** : find the parameter responsible for oscillations in the spectra
 -**Analysesavehdf5-transmission.ipynb** : understand grey attenuation and move forward on airmass bias AND SELECT PHOTOMETRIC NIGHTS
 
+## Notebook doing analysis on spectra (Dec 10th 2024)
+-**Analysesavehdf5-applyselection.ipynb** : select photometric night
+-**Analysesavehdf5-applyselectionPWV.ipynb** : show extinction in PWV region
 
 
 ## Other
 
--  FindGaiaTargets.ipynb
+- FindGaiaTargets.ipynb
 - CheckAdditionalInfo.ipynb
 
