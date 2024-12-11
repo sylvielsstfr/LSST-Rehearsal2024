@@ -68,6 +68,10 @@
 -**Analysesavehdf5-applyselection.ipynb** : select photometric night
 -**Analysesavehdf5-applyselectionPWV.ipynb** : show extinction in PWV region
 
+## Notebook doing analysis on spectra (Dec 11th 2024)
+-**Analysesavehdf5-applyselectionO3.ipynb** : show extinction in Ozone region
+-**Analysesavehdf5-applyselectionO2.ipynb** : show extinction in O2 region
+
 
 ## Other
 
