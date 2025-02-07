@@ -73,6 +73,19 @@
 -**Analysesavehdf5-applyselectionO2.ipynb** : show extinction in O2 region
 
 
+## Feb 2025 : rework on PWV long timescale correlation 
+
+starting from  **TimeCorrelation.ipynb** :
+### 2025-02-06 : separate clouds/non cloud
+- PWV_TimeCorrelation-updateFeb2025-clearsky.ipynb
+- PWV_TimeCorrelation-updateFeb2025-highvaod.ipynb
+
+### 2025-02-07 : historgrams with varying size with bayesian blocks
+- TestBayesianBlocks.ipynb
+
+- PWV_TimeCorrelation-updateFeb2025-highvaod-VariableTimeBins.ipynb
+- PWV_TimeCorrelation-updateFeb2025-clearsky-VariableTimeBins.ipynb
+
 ## Other
 
 - FindGaiaTargets.ipynb
