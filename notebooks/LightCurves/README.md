@@ -1,7 +1,7 @@
 # README.md
 
 - author Sylvie Dagoret-Campagne
-- last update 2024-09-12
+- last update 2024-09-27
 - affiliation : IJCLab
 
 
@@ -107,6 +107,13 @@ Note the colored light curves extracted goes into those Folders:
 
   I have implemented a fast reading the the colored light curves by reading the results from folders **data_coloredlightcurves/**
 in notebooks called **LoopQuickLookTwinSourcesMultiColorLightCurve...**:
+
+
+### 2024-09-27 : Introduce version v3 to process with new spectro data:
+
+- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorGR-cutontime_v3.ipynb**
+- **LoopTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY-cutontime_v3.ipynb**
+
 
 - Comparing to PWV:
 - fast processing of pairs of light curves : LoopQuickLookTwinSourcesMultiColorLightCurveToFitsfromPairs-Auxtel-ColorZY.ipynb
