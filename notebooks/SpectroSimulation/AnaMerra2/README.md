@@ -1,0 +1,9 @@
+# README.md
+
+
+FFTAtmosphericAtmosphereFromMerra2_timeseq.ipynb 
+FitAtmosphereFrmMerra2_timeseq-v2.ipynb
+PeriodogramAtmosphereFrmMerra2_timeseq.ipynb
+FitAtmosphereFrmMerra2_timeseq-v1.ipynb
+FitGPPeriodicAtmMerra2_timeseq.ipynb
+
