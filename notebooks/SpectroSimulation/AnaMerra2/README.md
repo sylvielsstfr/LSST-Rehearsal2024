@@ -19,7 +19,7 @@
 
 ### Fit random component (2025-02-26)
 
-- **FitGPPeriodicShortTimeScaleAtmMerra2_timeseq.ipynb**
+- **FitGPShortTimeScaleAtmMerra2_timeseq.ipynb**
 
 ## Deprecated
 - FitAtmosphereFrmMerra2_timeseq-v2.ipynb
