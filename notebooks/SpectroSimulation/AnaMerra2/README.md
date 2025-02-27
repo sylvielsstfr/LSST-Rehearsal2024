@@ -9,7 +9,7 @@
 
 ## Extract TimeScales from FFT 
 
-- **FFTAtmosphericAtmosphereFromMerra2_timeseq.ipynb** 
+- **FFTAtmosphFromMerra2_timeseq.ipynb** 
 
 ## Fit with Gaussian Process
 
@@ -20,6 +20,13 @@
 ### Fit random component (2025-02-27)
 
 - **FitGPShortTimeScaleAtmMerra2_timeseq.ipynb** : must run **FitGPPeriodicAtmMerra2_timeseq.ipynb** before in order to generate residuals time sequences in Forlder dataFitGPPerAtmosphereFomMerra2
+
+
+### Method LombScargle (2025-02-27)
+
+Replace FFT by Lomb-Scargle because there are missing values
+- **LombScargleAtmosphFromMerra2_timeseq.ipynb**: https://docs.astropy.org/en/latest/timeseries/lombscargle.html
+
 
 ## Deprecated
 - FitAtmosphereFrmMerra2_timeseq-v2.ipynb
