@@ -86,6 +86,11 @@ starting from  **TimeCorrelation.ipynb** :
 - PWV_TimeCorrelation-updateFeb2025-highvaod-VariableTimeBins.ipynb
 - PWV_TimeCorrelation-updateFeb2025-clearsky-VariableTimeBins.ipynb
 
+## March 2025 : LombScargle spectrum and removal of seasonal effect
+
+- **PWV_FrequencyAndMerra2ComparisonMarch2025.ipynb**
+
+
 ## Other
 
 - FindGaiaTargets.ipynb
