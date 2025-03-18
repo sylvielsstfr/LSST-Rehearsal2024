@@ -1,7 +1,7 @@
 # README.md
 
 - creation date : 2024-09-23
-- Last update : 2025-03-13 
+- Last update : 2025-03-18 
 
 ## First nb (deprecated)
 - ExploreHoloData.ipynb
@@ -89,8 +89,15 @@ starting from  **TimeCorrelation.ipynb** :
 ## March 2025 : LombScargle spectrum and removal of seasonal effect
 - **PWV_FrequencyAndMerra2ComparisonMarch2025.ipynb**
 
-## 12 March 2025 My implementation of averaged DCT :
+## 12 March 2025 My implementation of averaged DCT over one night (in logs-timebins):
 - **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT.ipynb**
+- **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT-lintimebins.ipynb**
+- **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT-logtimebins.ipynb**
+
+
+## 13 March 2025 : Subtract the periodic component with sinusoids
+- **PWV_FrequencyFitSinusAndMerra2ComparisonMarch2025.ipynb**
+ 
 
 ## Other
 
