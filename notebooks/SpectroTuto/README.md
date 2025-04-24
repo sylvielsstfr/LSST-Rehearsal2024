@@ -1,7 +1,8 @@
 # README.md
 
 - creation date : 2024-09-23
-- Las update : 2024-12-10 
+- Last update : 2025-03-18
+- last update : 2025-03-28
 
 ## First nb (deprecated)
 - ExploreHoloData.ipynb
@@ -77,18 +78,54 @@
 
 starting from  **TimeCorrelation.ipynb** :
 ### 2025-02-06 : separate clouds/non cloud
-- PWV_TimeCorrelation-updateFeb2025-clearsky.ipynb
-- PWV_TimeCorrelation-updateFeb2025-highvaod.ipynb
+- **PWV_TimeCorrelation-updateFeb2025-clearsky.ipynb**:
+- **PWV_TimeCorrelation-updateFeb2025-highvaod.ipynb**:
 
-### 2025-02-07 : historgrams with varying size with bayesian blocks
-- TestBayesianBlocks.ipynb
+### 2025-02-07 : histograms with varying size with bayesian blocks
+- **TestBayesianBlocks.ipynb**: Not very convincing
 
-- PWV_TimeCorrelation-updateFeb2025-highvaod-VariableTimeBins.ipynb
-- PWV_TimeCorrelation-updateFeb2025-clearsky-VariableTimeBins.ipynb
+### 2025-02: deprecated
+- **PWV_TimeCorrelation-updateFeb2025-highvaod-VariableTimeBins.ipynb**:
+- **PWV_TimeCorrelation-updateFeb2025-clearsky-VariableTimeBins.ipynb**: 
 
 ## March 2025 : LombScargle spectrum and removal of seasonal effect
-
 - **PWV_FrequencyAndMerra2ComparisonMarch2025.ipynb**
+
+## 12 March 2025 My implementation of averaged DCT over one night (in logs-timebins):
+- **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT.ipynb**
+- **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT-lintimebins.ipynb**
+- **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT-logtimebins.ipynb**
+
+
+## 13 March 2025 : Subtract the periodic component with sinusoids
+- **PWV_FrequencyFitSinusAndMerra2ComparisonMarch2025.ipynb**
+ 
+
+
+
+## Study frequency : 2025-03-15 :
+- **PWV_FrequencyFitGPAndMerra2ComparisonMarch2025.ipynb** : Fit GP
+- **PWV_FrequencyFitSinusAndMerra2ComparisonMarch2025.ipynb** : Fit Sinus
+
+
+
+## Compute myself with DCT : improve binning / work in feb
+- **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT-lintimebins.ipynb**:
+- **PWV_TimeCorrelation-updateMarch2025-allconditions_MyDCT-logtimebins.ipynb**: 
+
+
+
+
+## Reimplement repeatability : 2025-03-18 
+- **ExploreHoloQualityPWV_repeatability-updateMarch2025.ipynb**:
+- **ExploreHoloQualityOzone_repeatability-updateMarch2025.ipynb**:
+
+
+## Work o Ozone
+Ozone_FrequencyFitSinusAndMerra2ComparisonMarch2025.ipynb
+Ozone_TimeCorrelation-updateMarch2025-allconditions_MyDCT-lintimebins.ipynb
+Ozone_TimeCorrelation-updateMarch2025-allconditions_MyDCT-logtimebins.ipynb
+
 
 
 ## Other

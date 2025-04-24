@@ -2,7 +2,7 @@
 
 - author : Sylvie Dagoret-Camapgne
 - creation date : 2025-02-27
-- last update : 2025-03-03
+- last update : 2025-03-09
 
 ## Try Periodogram
 
@@ -29,6 +29,13 @@
 Replace FFT by Lomb-Scargle because there are missing values:
 - **LombScargleAtmosphFromMerra2_timeseq.ipynb**: https://docs.astropy.org/en/latest/timeseries/lombscargle.html
 Very usefull to Auxtel data
+
+### DCF (2025-03-08)
+
+- **DCTAtmosphFromMerra2_timeseq.ipynb**
+- **DCTonResidualsFromMerra2_timeseq.ipynb**
+
+
 
 ## Deprecated
 - FitAtmosphereFrmMerra2_timeseq-v2.ipynb
