@@ -1,0 +1,360 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "e704e45c-26e3-4d3d-b3b0-380d219f16cc",
+   "metadata": {},
+   "source": [
+    "## Test time to convert into local time"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "id": "7f30f7af-9056-4cfc-a316-ad290d425806",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "from astropy.time import Time\n",
+    "from astropy.coordinates.earth import EarthLocation\n",
+    "from astropy import units as u\n",
+    "from datetime import datetime\n",
+    "from pytz import timezone"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "54cc7311-9eb8-4a40-9b6d-263d65673157",
+   "metadata": {},
+   "source": [
+    "## Location"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "0b4f8c02-e36c-4a93-9fd9-f05aa999158d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#EarthLocation.get_site_names()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "0e50bddf-a6dc-4987-a004-5138ae73b2df",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "GeodeticLocation(lon=<Longitude -70.74941667 deg>, lat=<Latitude -30.24463333 deg>, height=<Quantity 2662.75 m>)"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "obs_rubin = EarthLocation.of_site('Rubin Observatory')\n",
+    "obs_rubin.to_geodetic()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "a2001cca-446e-4246-9cb1-f558cad4fb74",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "GeodeticLocation(lon=<Longitude 2.19747845 deg>, lat=<Latitude 47.37360171 deg>, height=<Quantity 190.94343144 m>)"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "obs_nancais = EarthLocation.of_site('NANCAY')\n",
+    "obs_nancais.to_geodetic()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1f6989d8-b6f3-48ab-a080-54f4f9618fdd",
+   "metadata": {},
+   "source": [
+    "## UTC"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "57a29e52-5858-423e-a8ae-c86fd7ff7473",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Time object: scale='utc' format='datetime' value=2024-10-17 12:20:00.501919>"
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "nt = Time.now()\n",
+    "nt"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "f86b9ceb-e159-4e9a-9d22-a152530d5aba",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Time object: scale='utc' format='datetime' value=2024-10-17 12:20:02.154582>"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Time(datetime.utcnow())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "39e64c30-c20b-4811-8741-cffcd461ee5d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "60600.51389469814 (np.float64(0.5138946981387562), np.float64(60600.0))\n",
+      "12.333472755330149\n"
+     ]
+    }
+   ],
+   "source": [
+    "# mjd est referencé par rapport à minuit\n",
+    "mjd = nt.mjd\n",
+    "print(mjd, np.modf(mjd))\n",
+    "reftime = np.modf(mjd)[0]*24\n",
+    "print(reftime)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "3f8adf14-2dc5-4f8c-a8b7-bdd816fd4bdf",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2460601.013894698 (np.float64(0.013894698116928339), np.float64(2460601.0))\n",
+      "0.33347275480628014\n"
+     ]
+    }
+   ],
+   "source": [
+    "# jd est referencé par rapport à midi\n",
+    "jd = nt.jd\n",
+    "print(jd, np.modf(jd))\n",
+    "reftime = np.modf(jd)[0]*24\n",
+    "print(reftime)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b052fc2a-3779-47d3-b0b6-2313cb5c6b19",
+   "metadata": {},
+   "source": [
+    "## Local time at observation"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "id": "88b7abd0-56c3-4c5a-ba53-27b454324d01",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "FLAG_TIME_PARIS = True "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "id": "738b779d-3b74-4e8f-8ca9-63a5b12a3431",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "LocalTime =  2024-10-17 12:51:16.392618  , LST  =  9h54m20.97481382s\n"
+     ]
+    }
+   ],
+   "source": [
+    "#observing_location = obs_nancais\n",
+    "if FLAG_TIME_PARIS:\n",
+    "    observing_location = obs_nancais\n",
+    "else:\n",
+    "    observing_location = obs_rubin\n",
+    "    \n",
+    "# C'est cette fonction qui donne le temps sidéral correct \n",
+    "observing_time = Time(datetime.utcnow(), scale='utc', location=observing_location)\n",
+    "## Ne Pas utiliser : observing_time = Time(datetime.now(), scale='utc', location=observing_location)\n",
+    "\n",
+    "\n",
+    "LST = observing_time.sidereal_time('mean')\n",
+    "print(\"LocalTime = \",observing_time,\" , LST  = \",LST)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "id": "a1dabcfc-fb6b-488c-9508-c5c5d1b3ea8d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#observing_time.earth_rotation_angle()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 76,
+   "id": "0b6bf2c4-a23a-4805-801b-ba63abd52ed5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "if FLAG_TIME_PARIS:\n",
+    "    tz = timezone('Europe/Paris')\n",
+    "else:\n",
+    "    tz = timezone('America/Santiago')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 72,
+   "id": "b3f3b381-ca56-47c2-acc6-1809dbf63de3",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "GeodeticLocation(lon=<Longitude -70.74941667 deg>, lat=<Latitude -30.24463333 deg>, height=<Quantity 2662.75 m>)"
+      ]
+     },
+     "execution_count": 72,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "observing_time.location.to_geodetic()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "id": "40ca7cc2-2e67-4f75-a4d1-178306197609",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "local_time =  observing_time.to_datetime(timezone=tz)\n",
+    "local_time_midnight = datetime(local_time.year,local_time.month,local_time.day).astimezone(tz)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "id": "afc70661-bd7e-4188-b8de-98c0ba57ecdd",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "14.854444444444445"
+      ]
+     },
+     "execution_count": 92,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "(local_time - local_time_midnight).seconds/3600."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "id": "97d5da88-b353-4529-8465-e161b0ab3931",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "datetime.datetime(2024, 10, 17, 0, 0, tzinfo=<DstTzInfo 'Europe/Paris' CEST+2:00:00 DST>)"
+      ]
+     },
+     "execution_count": 86,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "local_time_midnight"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1537eda0-c0af-4bf9-b428-17571334e6ef",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.15"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

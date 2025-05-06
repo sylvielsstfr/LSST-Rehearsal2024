@@ -1,0 +1,54 @@
+description: atmospec ProcessStarTask definition.
+instrument: lsst.obs.lsst.Latiss
+tasks:
+  isr:
+    class: lsst.ip.isr.IsrTask
+    config:
+      # characterize performance when turning on darks as first attempt found it
+      # to degrade performance (possibly due to bad darks, but take care here)
+      doDark: False
+      doFlat: False
+      doFringe: False
+      doDefect: True
+      doLinearize: False
+      doCrosstalk: False
+      doSaturationInterpolation: True
+      overscan.fitType: 'MEDIAN_PER_ROW'
+      doBias: True
+      # new
+      doApplyGains: False
+      usePtcGains: True
+  characterizeImage:
+    class: lsst.pipe.tasks.characterizeImage.CharacterizeImageTask
+    config:
+      repair.doCosmicRay: True
+      doApCorr: False
+      doMeasurePsf: False
+      detection.includeThresholdMultiplier: 3
+      doMaskStreaks: False
+      doNormalizedCalibration: False
+      # assess carefully whether turning on cosmic ray repair hurts performance
+      python : |
+        # if we turn PSF measurement on re-enable this plugin
+        config.measurement.plugins.names = set(config.measurement.plugins.names) -       set(('base_ClassificationSizeExtendedness',))
+  singleStarCentroid: lsst.atmospec.centroiding.SingleStarCentroidTask
+  processStar: 
+    class: lsst.atmospec.processStar.ProcessStarTask
+    config:
+      rebin: 2
+      spectralOrder: 1
+      psfPolynomialOrder: 2
+      deconvolutionSigmaClip: 100
+      doDeconvolveSpectrum: True
+      doFullForwardModelDeconvolution: True
+      doFitAtmosphere: True
+      doFitAtmosphereOnSpectrogram: True
+      lambdaMax: 1020
+      verbose: True
+      spectractorDebugLogging: False
+      spectractorDebugMode: True
+      #instrumentTransmissionOverride: 'multispectra_holo4_003_HD142331_20230802_348-594_HD146233_AuxTel_v3.1.0_doSensorFlat_FreePressure_throughput.txt'
+      #instrumentTransmissionOverride: multispectra_holo4_003_HD142331_20230802_AuxTel_doGainsPTC_v3.0.3_throughput.txt
+      'instrumentTransmissionOverride': 'multispectra_holo4_003_HD142331_20230802_348-594_HD146233_AuxTel_v3.1.0_doSensorFlat_FreePressure_BG40ReScaled1.09_throughput.txt'
+
+      
